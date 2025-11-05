@@ -6,6 +6,7 @@ import { useColorMode } from "@docusaurus/theme-common"
 export default function Home() {
   const { globalData } = useDocusaurusContext()
   const { colorMode } = useColorMode()
+  console.log('colorMode', colorMode)
   const isDarkMode = colorMode === "dark"
 
   const docs =
@@ -23,9 +24,11 @@ export default function Home() {
                 <div className="flex h-16 w-auto  mr-3">
                   <img
                     src={
-                      isDarkMode
-                        ? category.icon.dark
-                        : category.icon.light || "img/icons/table-cells.svg"
+                      category.icon
+                        ? (isDarkMode
+                            ? category.icon.dark
+                            : category.icon.light)
+                        : "img/icons/table-cells.svg"
                     }
                     className="h-full w-full object-cover"
                     alt="Logo"
@@ -73,7 +76,7 @@ export default function Home() {
         id: category,
         header: category.charAt(0).toUpperCase() + category.slice(1),
         subheader: `Articles about ${category}`,
-        path: `/docs/${category}`,
+        path: `/help/${category}`,
         count: categoryCounts[category],
         ...(category in categoryData && categoryData[category]),
     }));
