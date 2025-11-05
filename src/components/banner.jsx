@@ -20,7 +20,7 @@ export default function Banner() {
       />
       <div className="text-center space-y-8 z-20">
         <h1 className="text-white text-4xl lg:text-6xl font-semibold">
-          FreeText AI Help Center 
+         Acme.Bot Help Center 
         </h1>
       </div>
     </div>
