@@ -1,0 +1,21 @@
+# Example timestamps file for extract-images.sh
+# Format: TIMESTAMP FILENAME
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+
+# Example timestamps (adjust these to match your video)
+00:15 step-1.png
+00:28 step-2.png
+00:45 step-3.png
+01:02 step-4.png
+01:20 step-5.png
+01:38 step-6.png
+
+# You can also use full HH:MM:SS format for longer videos
+# 01:15:30 step-7.png
+
+# Tips:
+# - Watch your video and note down timestamps where you want screenshots
+# - Capture key moments: button clicks, page loads, form submissions, results
+# - Use consistent naming: step-1.png, step-2.png, etc.
+# - Keep filenames simple and descriptive
