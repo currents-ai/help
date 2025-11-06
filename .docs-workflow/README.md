@@ -37,11 +37,40 @@ Requirements:
   - Image placeholder: ![Step description](/img/help/CATEGORY/FEATURE/step-X.png)
 - At the end, add "## FFmpeg Commands" section with commands to extract each image
 
+IMPORTANT FOR TIMESTAMP SELECTION:
+- Analyze the video carefully and identify the BEST representative frame for each step
+- Choose timestamps where:
+  - The UI is stable (not mid-transition or animation)
+  - The important elements are clearly visible
+  - Modal dialogs, dropdowns, or pop-ups are fully rendered
+  - Mouse cursor highlights the relevant action area
+  - Text/content is fully loaded (no loading spinners)
+- Avoid frames during:
+  - Page transitions or navigation
+  - Loading states or animations
+  - Blurry motion or rapid cursor movement
+  - Partially rendered UI elements
+
 Details:
 CATEGORY: [reports/account/data-sources/guides/platform]
 FEATURE: [feature-name-in-kebab-case]
 
 Example: /img/help/reports/custom-reports/step-1.png
+
+FFmpeg Command Format (use this exact format):
+# 1. Create the output directory (if it doesn't exist)
+mkdir -p screenshots
+
+# 2. Define the input file variable
+INPUT_FILE="input.mp4"
+
+# 3. Extract screenshots sequentially (best visual frames selected)
+
+# Step 1: [Step Description] (MM:SS)
+ffmpeg -i "$INPUT_FILE" -ss MM:SS.000 -vframes 1 ./screenshots/step-1.png
+
+# Step 2: [Step Description] (MM:SS)
+ffmpeg -i "$INPUT_FILE" -ss MM:SS.000 -vframes 1 ./screenshots/step-2.png
 ```
 
 4. Copy the generated markdown
@@ -65,10 +94,29 @@ cd static/img/help/[CATEGORY]/[FEATURE]
 cp ~/Videos/feature-name.mp4 ./input.mp4
 
 # Run ffmpeg commands (AI generated these at the end of the doc)
-ffmpeg -ss 00:00:15 -i input.mp4 -frames:v 1 -q:v 2 step-1.png
-ffmpeg -ss 00:00:28 -i input.mp4 -frames:v 1 -q:v 2 step-2.png
-ffmpeg -ss 00:00:45 -i input.mp4 -frames:v 1 -q:v 2 step-3.png
-# ... continue for all steps
+# The AI will have selected the best frames, use the exact format below:
+
+# 1. Create the output directory
+mkdir -p screenshots
+
+# 2. Define the input file variable
+INPUT_FILE="input.mp4"
+
+# 3. Extract screenshots (copy commands from AI-generated section)
+# Example format:
+
+# Step 1: Switch Task View to Table (00:11)
+ffmpeg -i "$INPUT_FILE" -ss 00:11.000 -vframes 1 ./screenshots/step-1.png
+
+# Step 2: Open the Completed Document (00:18)
+ffmpeg -i "$INPUT_FILE" -ss 00:18.000 -vframes 1 ./screenshots/step-2.png
+
+# Step 3: Enter the Diagram Editor (00:38)
+ffmpeg -i "$INPUT_FILE" -ss 00:38.000 -vframes 1 ./screenshots/step-3.png
+
+# ... continue for all steps, then move files to correct location
+mv screenshots/*.png ./
+rmdir screenshots
 ```
 
 ### 5. Test & Commit (30 sec)
@@ -132,11 +180,20 @@ bash .docs-workflow/extract-images.sh video.mp4 static/img/help/CATEGORY/FEATURE
 
 ## FFmpeg Parameters
 
-- `-ss HH:MM:SS` - Timestamp to extract
-- `-i file.mp4` - Input video
-- `-frames:v 1` - Extract one frame
-- `-q:v 2` - High quality (2-8 recommended)
-- `-y` - Overwrite without asking
+**Recommended command format:**
+```bash
+ffmpeg -i "$INPUT_FILE" -ss MM:SS.000 -vframes 1 ./screenshots/step-X.png
+```
+
+**Parameter explanation:**
+- `-i "$INPUT_FILE"` - Input video file (using variable)
+- `-ss MM:SS.000` - Timestamp to extract (seconds with milliseconds)
+- `-vframes 1` - Extract exactly one video frame
+- `./screenshots/step-X.png` - Output file path
+
+**Optional parameters:**
+- `-y` - Overwrite without asking (add at end of command)
+- `-q:v 2` - Quality level (2=highest, 8=lowest, default is good)
 
 ## Troubleshooting
 
