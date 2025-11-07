@@ -9,10 +9,7 @@ import Banner from "@site/src/components/banner";
 export default function Index() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title={`Docs`}
-      description={`FreeText AI Docs - Hub for privacy, help docs and other resources.`}
-    >
+    <Layout title={`Docs`} description={`Acme.Bot Documentation`}>
       <main>
         <div className="space-y-16">
           <Banner />

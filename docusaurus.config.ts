@@ -66,17 +66,6 @@ const config: Config = {
   ],
 
   plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "privacy",
-        path: "privacy",
-        routeBasePath: "privacy",
-        sidebarPath: "./sidebarsPrivacy.ts",
-        // ... other options
-      },
-    ],
-
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -98,27 +87,9 @@ const config: Config = {
       logo: {
         alt: "Acme Bot Logo",
         src: "img/logo.svg",
+        href: "https://acme.bot",
+        target: "_self",
       },
-      items: [
-        {
-          type: "docSidebar",
-          sidebarId: "helpSidebar",
-          position: "left",
-          label: "Help",
-        },
-        {
-          to: "/privacy/cookies",
-          label: "Privacy",
-          position: "left",
-          activeBaseRegex: `/privacy`,
-        },
-        //{to: '/blog', label: 'Blog', position: 'left'},
-        {
-          href: "https://acme.bot",
-          label: "Go To Acme.Bot",
-          position: "right",
-        },
-      ],
     },
     footer: {
       //style: 'dark',
