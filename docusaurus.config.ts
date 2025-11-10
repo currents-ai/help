@@ -82,6 +82,9 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
+    metadata: [
+      {name: 'algolia-site-verification', content: 'FB616763799BBAC4'},
+    ],
     navbar: {
       title: "",
       logo: {
@@ -143,7 +146,7 @@ const config: Config = {
     algolia: {
       appId: "6XF31BUUL9", // The application ID provided by Algolia
       apiKey: "da3f1b3152a8b6b73fe4dc997453d0f8", // Public API key: it is safe to commit it
-      indexName: "freetext",
+      indexName: "acme-docs",
       contextualSearch: true, // Optional: see doc section below
 
       // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
