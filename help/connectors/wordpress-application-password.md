@@ -40,56 +40,49 @@ After selecting the connector type, click the **Next** button to move to the aut
 
 ![Proceed to Authentication](/img/help/connectors/wordpress-application-password/step-4.png)
 
-### 5. Enter Website and Username
+### 5. Enter site url
 
-In the Authentication form, enter your full WordPress website URL in the **Website** field and your WordPress administrator username in the **Username** field. Leave the Application Password field blank for now.
+In the Authentication form, enter your full WordPress website URL in the **Website** field. Leave both the **Username** and **Application Password** fields blank for now - you will obtain these values in the next step.
 
 ![Enter Website and Username](/img/help/connectors/wordpress-application-password/step-5.png)
 
-### 6. Approve the Connection in WordPress
+### 6. Create Application Password in WordPress
 
-To authorize the application password, navigate to:
-```
-https://yourwebsite.com/wp-admin/authorize-application.php?app_name=acme-bot
-```
-(Replace `yourwebsite.com` with your actual WordPress site URL)
+You need to create an application password in WordPress for the specific user account you want to use for this connection.
 
-**Alternatively, you can create the application password manually:**
+1. **Log in to your WordPress Admin Dashboard** as the user for whom you want to create the application password (usually `yourwebsite.com/wp-admin`)
 
-1. **Log in to your WordPress Admin Dashboard** (usually `yourwebsite.com/wp-admin`)
 2. **Navigate to Your User Profile**
    In the left-hand menu, go to **Users > Your Profile**. (Alternatively, click your name/avatar in the top-right admin bar and select "Edit Profile")
+
 3. **Note Your Username**
-   At the top of your profile page, you'll see your **Username** field. Copy and save this username – you'll need it later for the ACME.BOT connection settings. This is your WordPress login username, not the application password name.
+   At the top of your profile page, you'll see your **Username** field. Copy and save this username – this is the username you will enter in the connector configuration. **Important: This must be the username of the user account for which you are creating the application password.**
    ![Username](/img/help/connectors/wordpress-application-password/username.png)
+
 4. **Scroll Down to "Application Passwords"**
-   You'll find this section towards the bottom of your profile page. Enter a name for (eg., acmebot) for the application password and then click on add **Add Application Password**
+   You'll find this section towards the bottom of your profile page. Enter a descriptive name (e.g., "acmebot") for the application password and then click **Add New Application Password**.
    ![Application Password](/img/help/connectors/wordpress-application-password/application-password.png)
    *(Note: If you don't see this section, first check the "Pretty Permalinks" prerequisite below. If that's set correctly, a security plugin might be disabling it, or your user role might not have permission.)*
 
-On the "Authorize Application" screen, review the details and click **Yes, I approve of this connection** to generate a new password.
+5. **Copy the Generated Password**
+   WordPress will generate a unique, secure password for the application. Copy this password immediately as it will not be shown again.
 
-![Approve the Connection in WordPress](/img/help/connectors/wordpress-application-password/step-6.png)
-
-### 7. Copy the Application Password
-
-WordPress will generate a unique, secure password for the application. Highlight and copy this password to your clipboard, and be sure to save it in a safe location as it will not be shown again.
 
 ![Copy the Application Password](/img/help/connectors/wordpress-application-password/step-7.png)
 
-### 8. Enter Password and Authorize
+### 7. Enter Username, Password and Authorize
 
-Return to the connector setup page. Paste the copied application password into the **Application Password** field and click the **Authorize** button to verify the connection.
+Return to the connector setup page. Enter the WordPress username (from step 6.3) in the **Username** field and paste the copied application password into the **Application Password** field. Click the **Authorize** button to verify the connection.
 
 ![Enter Password and Authorize](/img/help/connectors/wordpress-application-password/step-8.png)
 
-### 9. Name Your Connector
+### 8. Name Your Connector
 
 After a successful connection, you will be prompted to name your connector. Enter a descriptive name in the **Connector Name** field to easily identify it later.
 
 ![Name Your Connector](/img/help/connectors/wordpress-application-password/step-9.png)
 
-### 10. Save and Confirm
+### 9. Save and Confirm
 
 Click **Save Connector** to finalize the setup. You will be redirected back to the Connectors list, where your newly created WordPress connection will appear.
 
