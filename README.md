@@ -32,13 +32,20 @@ Analyze this screen recording and create step-by-step documentation in proper Ma
 Requirements:
 - Title (# heading)
 - Overview section (2-3 sentences)
-- Prerequisites section (bulleted list)
 - Steps section with:
   - Each step as ### heading
-  - Timestamp in bold: **Timestamp: MM:SS**
   - 2-3 sentences explaining the step
   - Image placeholder: ![Step description](/img/help/CATEGORY/FEATURE/step-X.png)
 - At the end, add "## FFmpeg Commands" section with commands to extract each image
+
+Add this snippet for docusaurus (can be used to customize title,slug, etc)
+---
+sidebar_position: 1
+slug: /wordpress-application-password
+title: Wordpress Apllication Password
+---
+
+
 
 IMPORTANT FOR TIMESTAMP SELECTION:
 - Analyze the video carefully and identify the BEST representative frame for each step
@@ -55,10 +62,10 @@ IMPORTANT FOR TIMESTAMP SELECTION:
   - Partially rendered UI elements
 
 Details:
-CATEGORY: [reports/account/data-sources/guides/platform]
-FEATURE: [feature-name-in-kebab-case]
+CATEGORY: [connectors]
+FEATURE: [wordpress-application-password]
 
-Example: /img/help/reports/custom-reports/step-1.png
+Example: /img/help/connectors/wordpress-application-password/step-1.png (this will be the url in markdown ffpegoutput should be screenshots/step-x.png)
 
 FFmpeg Command Format (use this exact format):
 # 1. Create the output directory (if it doesn't exist)
@@ -74,6 +81,8 @@ ffmpeg -i "$INPUT_FILE" -ss MM:SS.000 -vframes 1 ./screenshots/step-1.png
 
 # Step 2: [Step Description] (MM:SS)
 ffmpeg -i "$INPUT_FILE" -ss MM:SS.000 -vframes 1 ./screenshots/step-2.png
+
+we should be able copy the command and paste it in a file and execute the file to get all the images
 ```
 
 4. Copy the generated markdown

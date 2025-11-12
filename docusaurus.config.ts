@@ -83,7 +83,7 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     metadata: [
-      {name: 'algolia-site-verification', content: 'FB616763799BBAC4'},
+      { name: "algolia-site-verification", content: "FB616763799BBAC4" },
     ],
     navbar: {
       title: "",
@@ -144,8 +144,8 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     algolia: {
-      appId: "6XF31BUUL9", // The application ID provided by Algolia
-      apiKey: "da3f1b3152a8b6b73fe4dc997453d0f8", // Public API key: it is safe to commit it
+      appId: "2NTE2W1V9G", // The application ID provided by Algolia
+      apiKey: "cb1e7480aa19f89412b67973b7dac563", // Public API key: it is safe to commit it
       indexName: "acme-docs",
       contextualSearch: true, // Optional: see doc section below
 
