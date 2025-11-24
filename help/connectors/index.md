@@ -14,3 +14,10 @@ Learn how to connect ACME.BOT with various platforms and services.
 Connect ACME.BOT to your Shopify store to automatically publish blog posts and manage content.
 
 - [How to Create a Shopify API Key for ACME.BOT](./how-to-create-shopify-api-key)
+
+### WordPress
+
+Connect ACME.BOT to your WordPress site to seamlessly publish content. Choose between two authentication methods:
+
+- [Connect via WordPress Plugin](./wordpress-plugin) - Streamlined setup using the official ACME.BOT plugin
+- [Connect via Application Password](./wordpress-application-password) - Secure API authentication using WordPress application passwords
