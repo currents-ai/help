@@ -81,7 +81,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    image: "img/acme-og.png",
     metadata: [
       { name: "algolia-site-verification", content: "FB616763799BBAC4" },
     ],

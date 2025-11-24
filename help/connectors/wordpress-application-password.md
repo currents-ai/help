@@ -87,4 +87,3 @@ After a successful connection, you will be prompted to name your connector. Ente
 Click **Save Connector** to finalize the setup. You will be redirected back to the Connectors list, where your newly created WordPress connection will appear.
 
 ![Save and Confirm](/img/help/connectors/wordpress-application-password/step-10.png)
-
