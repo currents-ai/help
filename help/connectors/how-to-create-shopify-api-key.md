@@ -3,118 +3,126 @@ sidebar_position: 1
 slug: /how-to-create-shopify-api-key
 title: Shopify
 ---
-# How to Create a Shopify API Key for ACME.BOT
+# Connect your Shopify blog to ACME.BOT
 
-This guide walks through the necessary steps within the Shopify admin dashboard to generate a custom private application. This process creates the Admin API access token and API key required for ACME.BOT to securely connect and publish content directly to your Shopify blog.
+ACME.BOT publishes to your store's blog through a custom Shopify app that you create and own. You build the app in Shopify's dev dashboard, give it permission to read and write store content, install it on your store, then hand ACME.BOT the two credentials it generates.
 
-## Prerequisites
+- **Time:** about 7 minutes
+- **You need:** Shopify store owner access
+- **You end up with:** a Client ID and a Secret
 
-*   Administrative access to your Shopify store.
-*   The ability to install custom apps (developer mode enabled).
+## Before you start
+
+- Sign in to your Shopify admin with an account that can create apps. The store owner always can; staff accounts need the app development permission.
+- You'll be handling your store's API secret. Have ACME.BOT open in another tab so you can paste it straight across.
+- Do the steps in order. The app has to be released and installed before the credentials will work.
 
 ## Steps
 
-### Navigate to Settings
+### 1. Open the Apps settings in your Shopify admin
 
+From your store admin, go to **Settings → Apps**. This is the page that gives you access to app development for your store. Use **Develop apps** — not the App Store — to reach the dev dashboard.
 
-From the main Shopify dashboard, click on the **Settings** option, which is typically located in the bottom-left corner of the navigation menu. This will open the general store configuration page.
+![Open the Apps settings in your Shopify admin](/img/help/connectors/shopify-api-key-creation/step-1.png)
 
-![Navigate to Settings](/img/help/connectors/shopify-api-key-creation/step-1.png)
+### 2. Go to the dev dashboard and start a new app
 
-### Go to Apps and Sales Channels
+Shopify takes you to the dev dashboard for your store. Click **Create app** in the "Get API credentials" banner at the bottom, or open **Apps → Create app**. Ignore the Shopify CLI instructions — you don't need to install anything.
 
+![Go to the dev dashboard and start a new app](/img/help/connectors/shopify-api-key-creation/step-2.png)
 
-In the settings menu that appears, locate and click the **Apps and sales channels** option. This section manages all installed applications and provides access to custom app development tools.
+### 3. Name the app and create it
 
-![Go to Apps and Sales Channels](/img/help/connectors/shopify-api-key-creation/step-2.png)
+Choose **Start from Dev Dashboard** on the right — that's the path that hands you API credentials directly. Enter a name for the app — anything works, such as `Acme.Bot` or `Acme blog` — then click **Create**. Whatever you choose is just how the app will appear in your store's app list; it doesn't affect the connection.
 
-### Access App Development
+![Name the app and create it](/img/help/connectors/shopify-api-key-creation/step-3.png)
 
+### 4. Fill in the App URL
 
-On the Apps and sales channels page, look for the main content area and click the **Develop apps** button, usually found in the top-right corner, to proceed to the custom app creation environment.
+On the **Create version** screen, enter any valid URL in the **App URL** field — `https://example.com` works. Leave **Embed app in Shopify admin** checked and the webhooks API version at its default. App URL is a required field, not a real destination; nothing is served from it.
 
-![Access App Development](/img/help/connectors/shopify-api-key-creation/step-3.png)
+![Fill in the App URL](/img/help/connectors/shopify-api-key-creation/step-4.png)
 
-### Allow Custom App Development
+### 5. Grant the app access to store content
 
+Scroll down to the **API access** section and click **Select scopes** next to **Scopes**. A dialog opens with a search box at the top. Type `content` into it — this filters the scope list rather than adding anything, and the matching scopes appear grouped under **Admin API → Store content**. Tick the two you need, **read_content** and **write_content**, then click **Done**.
 
-If this is your first time setting up a custom app, you will need to enable developer mode. Click the **Allow custom app development** button to initiate the necessary permissions change for your store.
+Those two scopes are what let ACME.BOT read your existing blog posts and publish new ones. Leave the Storefront API scope (`unauthenticated_read_content`) unchecked.
 
-![Allow Custom App Development](/img/help/connectors/shopify-api-key-creation/step-4.png)
+![Grant the app access to store content](/img/help/connectors/shopify-api-key-creation/step-5.png)
 
-### Confirm Custom App Development
+### 6. Confirm the scopes, then release
 
+Back on the form, the **Scopes** box should read exactly `read_content,write_content`. Leave **Optional scopes**, **legacy install flow**, and **Redirect URLs** empty. Click **Release**.
 
-A confirmation modal will appear, warning you about the risks associated with custom app development. Review the terms and click **Allow custom app development** again to proceed and enable the feature.
+:::tip
+If the Scopes box is empty, the dialog didn't save — reopen **Select scopes** and try again.
+:::
 
-![Confirm Custom App Development](/img/help/connectors/shopify-api-key-creation/step-5.png)
+![Confirm the scopes, then release](/img/help/connectors/shopify-api-key-creation/step-6.png)
 
-### Create a New App
+### 7. Name the version and confirm
 
+Shopify asks you to name the release. Anything works — `v1` is fine. Click **Release** to confirm. A version is a snapshot of the app's config; changing scopes later means releasing a new one.
 
-Once custom app development is enabled, click the **Create an app** button. This will launch a configuration popup where you can define the details for your new integration.
+![Name the version and confirm](/img/help/connectors/shopify-api-key-creation/step-7.png)
 
-![Create a New App](/img/help/connectors/shopify-api-key-creation/step-6.png)
+### 8. Install the app on your store
 
-### Name the App 'ACME.BOT'
+Releasing a version isn't the same as installing it. Open the app's **Overview** tab — **Installs** still reads 0. Click **Install app**.
 
+Until this is done, the credentials exist but grant access to nothing, and ACME.BOT's connection will fail.
 
-In the pop-up window, enter the name 'ACME.BOT' in the App name field. Ensure the Developer is listed correctly, and then click **Create app** to finalize the app shell setup.
+![Install the app on your store](/img/help/connectors/shopify-api-key-creation/step-8.png)
 
-![Name the App 'ACME.BOT'](/img/help/connectors/shopify-api-key-creation/step-7.png)
+### 9. Pick the store to install it on
 
-### Configure Admin API Scopes
+Shopify asks which store the app belongs to. Choose your store from the list. If you manage several stores, make sure you pick the one whose blog ACME.BOT should publish to.
 
+![Pick the store to install it on](/img/help/connectors/shopify-api-key-creation/step-9.png)
 
-The app overview page will load. To grant the necessary permissions for ACME.BOT to write blog posts, click on **Configure Admin API scopes**.
+### 10. Approve the permissions and install
 
-![Configure Admin API Scopes](/img/help/connectors/shopify-api-key-creation/step-8.png)
+The install screen lists what the app can reach — staff and contributor data, and store data for the Online Store. That's the `read_content` / `write_content` access from step 5, described in plain language. Click **Install**.
 
-### Select Required API Permissions
+:::note
+The yellow "This app hasn't been reviewed" banner is expected. Shopify only reviews apps distributed through its App Store. This one is a private app you just built for your own store, so there's nothing to review.
+:::
 
+![Approve the permissions and install](/img/help/connectors/shopify-api-key-creation/step-10.png)
 
-In the filtering search box, type `blog` or `content` to quickly find the relevant scopes. Check the boxes for both **write\_content** and **read\_content** to grant the app permission to manage blog posts.
+### 11. Confirm the app is installed
 
-![Select Required API Permissions](/img/help/connectors/shopify-api-key-creation/step-9.png)
+The app now appears under **Apps** in your store's left sidebar. Opening it shows the placeholder page at `example.com` from step 4 — that's expected and harmless. The app has no interface of its own; ACME.BOT talks to it through the API.
 
-### Save the Configuration
+![Confirm the app is installed](/img/help/connectors/shopify-api-key-creation/step-11.png)
 
+### 12. Copy the Client ID and Secret
 
-After ensuring that both required content scopes (`read_content` and `write_content`) are checked, scroll to the top or bottom of the page and click the blue **Save** button to apply the new permissions.
+Head back to the dev dashboard and open your app (`dev.shopify.com/dashboard` → your app). If you're not already on the **Settings** tab, click it in the left sidebar. Under **Credentials**, copy the **Client ID**, then click the eye icon to reveal the **Secret** and copy that too.
 
-![Save the Configuration](/img/help/connectors/shopify-api-key-creation/step-10.png)
+:::caution
+Treat the Secret like a password. Anyone holding it can write to your store's content. Paste it straight into ACME.BOT — don't email it or drop it in a shared doc. You can come back and reveal it again later; if it ever leaks, click **Rotate** and reconnect with the new one.
+:::
 
-### Go to API Credentials Tab
+![Copy the Client ID and Secret](/img/help/connectors/shopify-api-key-creation/step-12.png)
 
+## Hand the credentials to ACME.BOT
 
-The app configuration is complete. Now, click on the **API credentials** tab at the top of the screen to install the app and retrieve your access token.
+In ACME.BOT, add the Shopify connector and paste in these values. That's the last step — ACME.BOT can then read your existing posts and publish new ones to your blog.
 
-![Go to API Credentials Tab](/img/help/connectors/shopify-api-key-creation/step-11.png)
+| Value | Where it comes from |
+| --- | --- |
+| Store domain | Your `*.myshopify.com` address — shown next to your store name in Shopify |
+| Client ID | The app's **Settings → Credentials** panel (step 12) |
+| Secret | The same panel — click the eye icon to reveal it (step 12) |
 
-### Install the Custom App
+## If the connection is rejected
 
+Work back through three things:
 
-In the Admin API access token section, click the **Install app** button. This action makes the app active and generates the unique security token you need.
+- The app was never installed on the store (steps 8–11).
+- The version wasn't released, so it isn't active (steps 6–7).
+- The scopes didn't save (step 6).
 
-![Install the Custom App](/img/help/connectors/shopify-api-key-creation/step-12.png)
-
-### Confirm Installation
-
-
-A final confirmation popup will appear. Click **Install** to confirm that you want to activate the ACME.BOT custom app on your Shopify store.
-
-![Confirm Installation](/img/help/connectors/shopify-api-key-creation/step-13.png)
-
-### Reveal the Access Token
-
-
-After installation, the Admin API access token field will display a hidden value. Click **Reveal token once** to show the security key. Remember that this token is only shown this one time, so copy it immediately.
-
-![Reveal the Access Token](/img/help/connectors/shopify-api-key-creation/step-14.png)
-
-### Copy the Admin API Token
-
-
-The token is now visible. Click the copy icon next to the token or manually highlight and copy the full string. This is the API token you will enter into ACME.BOT to complete the integration setup.
-
-![Copy the Admin API Token](/img/help/connectors/shopify-api-key-creation/step-15.png)
+Shopify's admin changes often — the labels here may shift, but the sequence (create app → add content scopes → release → install on store → copy credentials) stays the same.
