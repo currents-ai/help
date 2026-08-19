@@ -21,3 +21,9 @@ Connect ACME.BOT to your WordPress site to seamlessly publish content. Choose be
 
 - [Connect via WordPress Plugin](./wordpress-plugin) - Streamlined setup using the official ACME.BOT plugin
 - [Connect via Application Password](./wordpress-application-password) - Secure API authentication using WordPress application passwords
+
+### Ghost
+
+Connect ACME.BOT to your Ghost site to publish posts through Ghost's Admin API.
+
+- [Connect your Ghost site to ACME.BOT](./ghost-admin-api-key)
