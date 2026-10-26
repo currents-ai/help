@@ -127,14 +127,16 @@ The quickest way is to regenerate the token you already have:
 
 Regenerating keeps the token's repository access and permissions, but the old value stops working right away. If you've deleted the old token, or want different settings, [create a new one](#create-a-fine-grained-personal-access-token) with the same permissions instead.
 
-### 2. Connect the new token to ACME.BOT
+### 2. Update the connector in ACME.BOT
 
-You can't swap the token on an existing connector. Saving the old connector with a new token doesn't change the token it publishes with. Create a replacement connector instead:
+You don't need a new connector. Put the new token on the one you already have:
 
-1. In **Connectors**, open your current GitHub connector and write down its **Repository**, **File Path Pattern**, **Frontmatter Template**, and **Auto-merge PRs** settings.
-2. Make sure the agent that publishes to this repository is the one selected, then click **Create Connector** and follow [Add the connector in ACME.BOT](#add-the-connector-in-acmebot). Use the new token and the settings you wrote down.
-3. The new connector becomes that agent's default, so its next publish goes through the new token.
-4. Delete the old GitHub connector from the Connectors list. If other agents still publish through it, move them to the new connector first.
+1. In ACME.BOT, click **Connectors** in the left sidebar, then click your GitHub connector in the list. You can also open its **⋮** menu and choose **Edit**. The **Edit Connector** window opens.
+2. Open the **GitHub Auth** tab. For security, the **Personal Access Token** field is empty. Your saved token isn't shown again.
+3. Paste the new `github_pat_…` value into **Personal Access Token**. Leave **Repository** as it is.
+4. Click **Authorize**. ACME.BOT checks the new token against the repository, the same way it did when you first connected.
+
+The connector keeps its name, repository, file path pattern, frontmatter template and auto-merge setting. Every agent that publishes through it uses the new token from its next publish on.
 
 :::tip
 Set a calendar reminder a few days before the new expiration date, so you can refresh the token before a publish fails.
