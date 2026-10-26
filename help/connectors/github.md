@@ -13,20 +13,44 @@ ACME.BOT publishes to GitHub by opening a pull request that adds your post as a 
 
 ## Create a fine-grained personal access token
 
-1. In GitHub, open [Settings → Developer settings → Personal access tokens → Fine-grained tokens](https://github.com/settings/tokens?type=beta) and click **Generate new token**.
-2. Give the token a name you'll recognise later, such as `ACME.BOT publishing`.
-3. Pick an **Expiration**. GitHub requires one for fine-grained tokens, so the token will run out at some point. When it does, follow [Refreshing your token](#refreshing-your-token).
-4. Under **Resource owner**, choose the account or organization that owns the repository.
-5. Under **Repository access**, choose **Only select repositories** and select your site's repository.
-6. Under **Repository permissions**, set:
+### 1. Open Fine-grained tokens
 
-   | Permission | Access |
-   | --- | --- |
-   | Contents | Read and write |
-   | Pull requests | Read and write |
+In GitHub, go to [Settings → Developer settings → Personal access tokens → Fine-grained tokens](https://github.com/settings/tokens?type=beta) and click **Generate new token**.
 
-   GitHub adds **Metadata: Read-only** on its own. ACME.BOT doesn't need anything else.
-7. Click **Generate token** and copy the value. It starts with `github_pat_`, and GitHub shows it only once.
+![Open Fine-grained tokens](/img/help/connectors/github/step-1.png)
+
+### 2. Name the token and set its owner and expiration
+
+- **Token name:** something you'll recognise later, such as `ACME.BOT publishing`.
+- **Resource owner:** the account or organization that owns the repository.
+- **Expiration:** pick a date. GitHub also offers **No expiration**, but recommends against it. A token with a date stops working once it passes, and you'll need to [refresh it](#refreshing-your-token).
+
+![Name the token and set its owner and expiration](/img/help/connectors/github/step-2.png)
+
+### 3. Choose the repository
+
+Under **Repository access**, choose **Only select repositories**, open **Select repositories**, and pick your site's repository.
+
+![Choose the repository](/img/help/connectors/github/step-3.png)
+
+### 4. Set the permissions
+
+Under **Permissions**, click **Add permissions** and add these two, then set each one's **Access** to **Read and write**:
+
+| Permission | Access |
+| --- | --- |
+| Contents | Read and write |
+| Pull requests | Read and write |
+
+GitHub adds **Metadata: Read-only** on its own. ACME.BOT doesn't need anything else. Click **Generate token**, then confirm in the dialog that lists the three permissions.
+
+![Set the permissions](/img/help/connectors/github/step-4.png)
+
+### 5. Copy the token
+
+GitHub shows the new token once, starting with `github_pat_`. Click the copy button next to it.
+
+![Copy the token](/img/help/connectors/github/step-5.png)
 
 :::caution
 Treat the token like a password. Anyone holding it can push to the repository. Paste it straight into ACME.BOT, and don't email it or put it in a shared doc.
@@ -38,26 +62,55 @@ If the repository belongs to an organization, an organization owner may have to 
 
 ## Add the connector in ACME.BOT
 
-1. In ACME.BOT, click **Connectors** in the left sidebar, then click **Create Connector**.
-2. Choose **GitHub** as the connector type and click **Next**.
-3. On **GitHub Auth**, fill in:
+### 6. Open Connectors
 
-   | Field | What to enter |
-   | --- | --- |
-   | Personal Access Token | The `github_pat_…` value you copied |
-   | Repository | `owner/repo`, or the repository's GitHub URL |
+In ACME.BOT, click **Connectors** in the left sidebar, then click **Create Connector** at the top right of the **Publish Connector** tab.
 
-   Click **Authorize**. ACME.BOT checks that the token can reach the repository and push to it.
-4. On **Repository Config**, set:
-   - **File Path Pattern**: where each post is written, such as `blog/{slug}.md`. It supports `{slug}` and `{date}`.
-   - **Frontmatter Template**: the frontmatter at the top of each file. Leave the default if your site doesn't need something different.
-   - **Auto-merge PRs**: tick this to merge each pull request automatically once it's created.
-   - **Connector Name**: a name to identify this connector in the list.
-5. Click **Save Connector**.
+![Open Connectors](/img/help/connectors/github/step-6.png)
+
+### 7. Choose GitHub
+
+The **Connect Your Blogging Platform** screen opens on **Connector Type**. Choose **GitHub** from the dropdown and click **Next**.
+
+![Choose GitHub](/img/help/connectors/github/step-7.png)
+
+### 8. Paste the token and repository
+
+On **GitHub Auth**, fill in:
+
+| Field | What to enter |
+| --- | --- |
+| Personal Access Token | The `github_pat_…` value you copied |
+| Repository | `owner/repo`, or the repository's GitHub URL |
+
+Click **Authorize**. ACME.BOT checks that the token can reach the repository and push to it.
+
+![Paste the token and repository](/img/help/connectors/github/step-8.png)
+
+### 9. Configure the repository
+
+On **Repository Config**, set:
+
+- **File Path Pattern:** where each post is written, such as `blog/{slug}.md`. It supports `{slug}` and `{date}`.
+- **Frontmatter Template:** the frontmatter at the top of each file. Leave the default if your site doesn't need something different.
+- **Auto-merge PRs:** tick this to merge each pull request automatically once it's created.
+- **Connector Name:** a name to identify this connector in the list.
+
+Click **Save Connector**.
+
+![Configure the repository](/img/help/connectors/github/step-9.png)
+
+### 10. Confirm the connection
+
+**Connection Successful!** appears, and ACME.BOT takes you back to the Connectors list, where your GitHub connector is now listed.
+
+![Connection Successful](/img/help/connectors/github/step-10.png)
+
+![The new connector in the list](/img/help/connectors/github/step-11.png)
 
 ## Refreshing your token
 
-Fine-grained tokens always expire, and ACME.BOT can't publish to GitHub once yours does. You'll see one of these:
+If your token has an expiration date, ACME.BOT can't publish to GitHub once that date passes. You'll see one of these:
 
 - **Before it expires:** if the token has less than 10 days left, a successful publish comes with a note: *"Your GitHub token expires in N days…"*
 - **After it expires:** publishing fails with *"GitHub rejected the connector's token. If publishing worked before, the token has most likely expired…"*
@@ -93,3 +146,5 @@ Set a calendar reminder a few days before the new expiration date, so you can re
 - **"GitHub refused access to…"** The token is missing a permission. It needs both **Contents** and **Pull requests** set to **Read and write**.
 - **"GitHub could not find the repository…"** Check the spelling of the repository, and make sure it's listed under the token's **Repository access**.
 - **The token shows as Pending.** An organization owner has to approve it before it works.
+
+GitHub's settings pages change from time to time. The labels may shift, but the sequence (Fine-grained tokens → Generate new token → pick the repository → Contents and Pull requests read and write) stays the same.
