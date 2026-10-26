@@ -27,3 +27,9 @@ Connect ACME.BOT to your WordPress site to seamlessly publish content. Choose be
 Connect ACME.BOT to your Ghost site to publish posts through Ghost's Admin API.
 
 - [Connect your Ghost site to ACME.BOT](./ghost-admin-api-key)
+
+### GitHub
+
+Connect ACME.BOT to a GitHub repository to publish posts as pull requests.
+
+- [Connect a GitHub repository to ACME.BOT](./github) — including [refreshing an expired token](./github#refreshing-your-token)
