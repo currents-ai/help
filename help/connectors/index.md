@@ -32,4 +32,4 @@ Connect ACME.BOT to your Ghost site to publish posts through Ghost's Admin API.
 
 Connect ACME.BOT to a GitHub repository to publish posts as pull requests.
 
-- [Connect a GitHub repository to ACME.BOT](./github) — including [refreshing an expired token](./github#refreshing-your-token)
+- [Connect a GitHub repository to ACME.BOT](./github.md) — including [refreshing an expired token](./github.md#refreshing-your-token)
