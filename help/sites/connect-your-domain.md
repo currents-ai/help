@@ -25,15 +25,17 @@ In the Cloudflare dashboard, open your domain and go to **DNS** → **Records**.
 
 | Field | Value |
 |---|---|
-| **Type** | `A` |
+| **Type** | `CNAME` |
 | **Name** | The subdomain, such as `blog`. Use `@` for the bare domain. |
-| **IPv4 address** | `35.190.77.59` |
+| **Target** | `cname.acme.pub` |
 | **Proxy status** | **Proxied** (the orange cloud is on) |
 | **TTL** | Auto |
 
 Click **Save**.
 
-![Add an A record for blog, pointing at 35.190.77.59, proxied](/img/help/sites/connect-your-domain/add-dns-record.png)
+A CNAME works for a bare domain too: Cloudflare resolves it at the root for you (CNAME flattening), so there's nothing extra to set up.
+
+![Add a CNAME record for blog, pointing at cname.acme.pub, proxied](/img/help/sites/connect-your-domain/add-dns-record.png)
 
 :::caution
 Keep the orange cloud on. With the proxy off (**DNS only**, a grey cloud), visitors reach our server directly, without Cloudflare's certificate, and the connection fails.
@@ -61,9 +63,9 @@ When you save the domain in ACME.BOT, we send one test request to it to confirm 
 
 - **Bot Fight Mode** (**Security** → **Bots**). Turn it off while you connect the domain. Cloudflare doesn't let a rule exempt a path from Bot Fight Mode.
 - **Under Attack mode** (**Overview**, under **Quick Actions**). Turn it off while you connect the domain.
-- **WAF custom rules that challenge or block visitors** (**Security** → **WAF**). Add a custom rule with the action **Skip** for requests whose **URI Path** starts with `/.well-known/acme-site/`, and put it above your challenge rules.
+- **WAF custom rules that challenge or block visitors** (**Security** → **WAF**). Add a custom rule with the action **Skip** for requests whose **URI Path** starts with `/api_acme/.well-known/acme-site/`, and put it above your challenge rules.
 
-![A WAF custom rule that skips /.well-known/acme-site/](/img/help/sites/connect-your-domain/waf-skip-rule.png)
+![A WAF custom rule that skips /api_acme/.well-known/acme-site/](/img/help/sites/connect-your-domain/waf-skip-rule.png)
 
 ## Connect the domain in ACME.BOT
 
@@ -85,11 +87,11 @@ Open `https://blog.example.com`. You should see your site. If you turned off bot
 
 | Message | What to do |
 |---|---|
-| We couldn't find a DNS record for this domain. | The `A` record from step 1 is missing, or it isn't live yet. Check the name, wait a minute and save again. |
+| We couldn't find a DNS record for this domain. | The `CNAME` record from step 1 is missing, or it isn't live yet. Check the name, wait a minute and save again. |
 | This domain points at us directly. | The record is **DNS only**. Turn on the orange cloud (step 1). |
 | Cloudflare is checking our certificate strictly. | The SSL/TLS mode is **Full (strict)**. Set it to **Full** for this hostname (step 2). |
-| Cloudflare's bot protection blocked our check. | Turn off Bot Fight Mode or Under Attack mode, or skip `/.well-known/acme-site/*` in your WAF rules (step 3). |
-| Cloudflare couldn't reach our servers. | The `A` record points at the wrong address. Set it to `35.190.77.59`. |
+| Cloudflare's bot protection blocked our check. | Turn off Bot Fight Mode or Under Attack mode, or skip `/api_acme/.well-known/acme-site/*` in your WAF rules (step 3). |
+| Cloudflare couldn't reach our servers. | The `CNAME` record points at the wrong target. Set it to `cname.acme.pub`. |
 | This domain doesn't reach our servers. | The record is missing, wrong, or not proxied, or the domain isn't on Cloudflare. Recheck steps 1 and 2. If you've only just added the domain to Cloudflare, wait a few minutes for its certificate and try again. |
 | That domain is connected to another of your sites. | Clear it on that site first (see below), then add it here. |
 | That domain is already in use. | Another account has connected this domain. If it's yours, contact support. |
