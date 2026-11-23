@@ -93,7 +93,7 @@ On **Repository Config**, set:
 
 - **File Path Pattern:** the folder and file name each post is saved as. The default, `blog/{slug}.md`, saves a post called "My First Post" as `blog/my-first-post.md`. You can also use `{date}`.
 - **Frontmatter Template:** the block of details at the top of each file, such as the title, date and summary. Most sites work with the default. Only change it if your site expects different fields.
-- **Auto-merge PRs:** tick this to publish posts straight away. Leave it unticked if you'd like to review each post on GitHub and merge it yourself.
+- **Auto-merge PRs:** on by default. ACME.BOT merges each post's pull request as soon as it opens it, so the post goes live straight away. Untick it if you'd rather review each post on GitHub and merge it yourself. You can change this later (see [Turning auto-merge on or off](#turning-auto-merge-on-or-off)).
 - **Connector Name:** any name that helps you spot this connector in the list, such as `GitHub Docs`.
 
 Click **Save Connector**.
@@ -107,6 +107,34 @@ You'll see **Connection Successful!**, and then ACME.BOT takes you back to the C
 ![Connection Successful](/img/help/connectors/github/step-10.png)
 
 ![The new connector in the list](/img/help/connectors/github/step-11.png)
+
+## How auto-merge works
+
+With **Auto-merge PRs** on, ACME.BOT opens a pull request for each post and merges it right away (as a squash merge). The token permissions from step 4 (Contents and Pull requests, read and write) are all it needs.
+
+Some repositories have rules that stop a pull request from being merged straight away:
+
+- **Required status checks** (for example, a build that has to pass): ACME.BOT turns on GitHub's own auto-merge for the pull request instead, and GitHub merges it once the checks pass. This needs **Allow auto-merge** to be on in the repository's **Settings → General → Pull Requests**.
+- **Required reviews**: the pull request waits for someone to approve it. If **Allow auto-merge** is on, GitHub merges it after the approval. If not, merge it yourself.
+- **Merge conflicts**, or a branch that changed in the meantime: merge it yourself on GitHub.
+
+If a pull request can't be merged, the post is not live yet, and ACME.BOT tells you so in two places:
+
+- **On the pull request:** a comment with GitHub's reason.
+- **In ACME.BOT:** the publish result says *"The pull request was opened but could not be merged automatically, so the post is not live yet. GitHub's response: … Merge it by hand to publish: &lt;link&gt;"*.
+
+Merging the pull request on GitHub publishes the post.
+
+## Turning auto-merge on or off
+
+You can change this at any time, without setting up the connector again:
+
+1. In ACME.BOT, click **Connectors** in the left sidebar, then click your GitHub connector in the list.
+2. Tick or untick **Auto-merge PRs**.
+3. Leave **Personal Access Token** empty to keep your current token.
+4. Click **Save**.
+
+The change applies from the next post an agent publishes. Pull requests that are already open are not merged or closed.
 
 ## Refreshing your token
 
@@ -131,10 +159,10 @@ The regenerated token keeps the same repository and permissions, so there's noth
 
 You don't need to set up the connector again. Just give your existing one the new token:
 
-1. In ACME.BOT, click **Connectors** in the left sidebar, then click your GitHub connector in the list. You can also open its **⋮** menu and choose **Edit**. The **Edit Connector** window opens.
-2. Open the **GitHub Auth** tab. The **Personal Access Token** field is empty. That's expected: ACME.BOT never shows a saved token again.
-3. Paste the new `github_pat_…` value into **Personal Access Token**. Leave **Repository** as it is.
-4. Click **Authorize**. ACME.BOT checks the new token, just as it did when you first connected.
+1. In ACME.BOT, click **Connectors** in the left sidebar, then click your GitHub connector in the list.
+2. The **Personal Access Token** field is empty. That's expected: ACME.BOT never shows a saved token again.
+3. Paste the new `github_pat_…` value into **Personal Access Token**.
+4. Click **Save**. ACME.BOT checks the new token, just as it did when you first connected, and shows when it expires.
 
 Everything else about the connector stays the same. Every agent that uses it switches to the new token from its next publish.
 
